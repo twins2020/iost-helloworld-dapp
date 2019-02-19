@@ -1,12 +1,10 @@
-{
-	"lang": "javascript",
-	"version": "1.0.0",
-	"abi": [
-		{
-			"name": "hello",
-			"args": [
-				"string"
-			]
-		}
-	]
+class HelloWorld {
+    init () {
+
+    }
+    hello(someone) {
+        return "hello, "+ someone
+    }
 }
+
+module.exports = HelloWorld;
