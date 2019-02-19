@@ -11,7 +11,7 @@ To use this, valid contract address should be in `src/components/HelloWorld.js` 
 `src/components/HelloWorld.js`
 ```
   hello = () => {
-    const contractAddress = 'ContractEf4ztxHFP4iUs6Xpomgb2nqfJN3D9K7dfp5H7pV7BVy4'
+    const contractAddress = 'ContractEf4ztxHFP4iUs6Xpomgb2nqfJN3D9K7dfp5H7pV7BVy4' //update with your contract address
     const { someone } = this.state
     window.iost.callABI(
       contractAddress,
