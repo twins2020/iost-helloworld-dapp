@@ -21,7 +21,7 @@ class HelloWorld extends Component<Props> {
   }
 
   hello = () => {
-    const contractAddress = 'ContractEf4ztxHFP4iUs6Xpomgb2nqfJN3D9K7dfp5H7pV7BVy4'
+    const contractAddress = 'ContractEuBvAH3ruoB4zC8b9jMRrBxT7u6nENbFXmJhhSC3z5QB'
     const { someone } = this.state
     window.iost.callABI(
       contractAddress,
