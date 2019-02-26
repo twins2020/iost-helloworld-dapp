@@ -17,6 +17,7 @@ class HelloWorld extends Component<Props> {
   }
 
   componentDidMount() {
+    console.log(window.IOSTJS)
   }
 
   handleChange = (e) => {
