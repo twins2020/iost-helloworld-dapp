@@ -1,4 +1,6 @@
 import React, { Component, Fragment } from 'react'
+import IOST from 'iost'
+import ETH from 'ethjs'
 
 import './HelloWorld.scss'
 
@@ -14,6 +16,9 @@ class HelloWorld extends Component<Props> {
     isLoading: false,
   }
 
+  componentDidMount() {
+  }
+
   handleChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value,
@@ -23,30 +28,38 @@ class HelloWorld extends Component<Props> {
   hello = () => {
     const contractAddress = 'ContractEuBvAH3ruoB4zC8b9jMRrBxT7u6nENbFXmJhhSC3z5QB'
     const { someone } = this.state
-    window.iost.callABI(
-      contractAddress,
-      'hello',
-      [someone]
-    )
-      .onPending((pending) => {
-        console.log(pending, 'pending')
-        this.setState({
-          isLoading: true,
-          txHash: pending.hash,
-          result: ''
-        })
-      })
-      .onSuccess((result) => {
-        this.setState({
-          isLoading: false,
-          result: result.returns[0]
-        })
-      })
-      .onFailed((failed) => {
-        this.setState({
-          isLoading: false,
-        })
-      })
+
+      IOSTJS.enable().then((account) => {
+        if(account){
+          const iost = IOSTJS.newIost(IOST)
+          // const tx = iost.callABI("token.iost", "transfer", ["iost", "admin", "admin", "10.000", ""]);
+          const tx = iost.callABI(contractAddress, "hello", [someone]);
+          iost.signAndSend(tx)
+          .on('pending', (pending) => {
+            console.log(pending, 'pending')
+            this.setState({
+              isLoading: true,
+              txHash: pending.hash,
+              result: ''
+            })
+          })
+          .on('success', (result) => {
+            console.log(result,someone,'result')
+            this.setState({
+              isLoading: false,
+              result: result.returns[0]
+            })
+          })
+          .on('failed', (failed) => {
+            console.log(failed, 'failed')
+            this.setState({
+              isLoading: false,
+            })
+          })
+        }else{
+          console.log('not login')
+        }
+    })
   }
 
   render() {

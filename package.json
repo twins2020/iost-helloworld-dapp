@@ -6,7 +6,7 @@
     "test": "test"
   },
   "scripts": {
-    "local": "NODE_ENV=local node ./frontserver.js webpack.config.js --watch",
+    "start": "NODE_ENV=local node ./frontserver.js webpack.config.js --watch",
     "build": "NODE_ENV=local webpack --config webpack.prod.config.js"
   },
   "repository": {
@@ -18,6 +18,8 @@
     "classnames": "^2.2.5",
     "dotenv": "^6.0.0",
     "dotenv-webpack": "^1.5.7",
+    "ethjs": "^0.4.0",
+    "iost": "^0.0.20",
     "json-format": "^1.0.1",
     "lodash": "^4.17.10",
     "moment": "^2.22.2",
