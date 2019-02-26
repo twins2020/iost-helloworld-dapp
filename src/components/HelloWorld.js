@@ -10,6 +10,7 @@ type Props = {
 
 class HelloWorld extends Component<Props> {
   state = {
+    account: '',
     someone: '',
     txHash: '',
     result: '',
@@ -17,7 +18,16 @@ class HelloWorld extends Component<Props> {
   }
 
   componentDidMount() {
-    console.log(window.IOSTJS)
+    // console.log(window.IOSTJS)
+    setTimeout(()=> {
+      IOSTJS.enable().then((account) => {
+        if(account){
+          this.setState({
+            account
+          })
+        }
+      })
+    }, 500)
   }
 
   handleChange = (e) => {
@@ -40,7 +50,43 @@ class HelloWorld extends Component<Props> {
             console.log(pending, 'pending')
             this.setState({
               isLoading: true,
-              txHash: pending.hash,
+              txHash: pending,
+              result: ''
+            })
+          })
+          .on('success', (result) => {
+            console.log(result,someone,'result')
+            this.setState({
+              isLoading: false,
+              result: result.returns[0]
+            })
+          })
+          .on('failed', (failed) => {
+            console.log(failed, 'failed')
+            this.setState({
+              isLoading: false,
+            })
+          })
+        }else{
+          console.log('not login')
+        }
+    })
+  }
+
+  transfer = () => {
+    const contractAddress = 'token.iost'
+    const { someone } = this.state
+
+      IOSTJS.enable().then((account) => {
+        if(account){
+          const iost = IOSTJS.newIost(IOST)
+          const tx = iost.callABI(contractAddress, "transfer", ["iost", "testnetiost", "testiost1", "1.000", "this is memo"]);
+          iost.signAndSend(tx)
+          .on('pending', (pending) => {
+            console.log(pending, 'pending')
+            this.setState({
+              isLoading: true,
+              txHash: pending,
               result: ''
             })
           })
@@ -64,10 +110,11 @@ class HelloWorld extends Component<Props> {
   }
 
   render() {
-    const { txHash, result, isLoading } = this.state
+    const { txHash, result, isLoading, account } = this.state
     return (
       <div className="HelloWorld">
         <header className="HelloWorld__title">IOST DAPP: Hello World</header>
+        <p>Account: {account}</p>
         <input
           className="HelloWorld__input"
           name="someone"
@@ -91,6 +138,13 @@ class HelloWorld extends Component<Props> {
           onClick={this.hello}
         >
           Hello!
+        </button>
+        <p></p>
+        <button
+          className="HelloWorld__helloButton"
+          onClick={this.transfer}
+        >
+          Transfer!
         </button>
         {isLoading && (
           <Fragment>
