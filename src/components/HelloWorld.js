@@ -18,9 +18,9 @@ class HelloWorld extends Component<Props> {
   }
 
   componentDidMount() {
-    // console.log(window.IOSTJS)
+    // console.log(window.IWalletJS)
     setTimeout(()=> {
-      IOSTJS.enable().then((account) => {
+      IWalletJS.enable().then((account) => {
         if(!account) return;
         this.setState({
           account
@@ -39,9 +39,9 @@ class HelloWorld extends Component<Props> {
     const contractAddress = 'ContractEuBvAH3ruoB4zC8b9jMRrBxT7u6nENbFXmJhhSC3z5QB'
     const { someone } = this.state
 
-      IOSTJS.enable().then((account) => {
+      IWalletJS.enable().then((account) => {
         if(account){
-          const iost = IOSTJS.newIost(IOST)
+          const iost = IWalletJS.newIOST(IOST)
           // const tx = iost.callABI("token.iost", "transfer", ["iost", "admin", "admin", "10.000", ""]);
           const tx = iost.callABI(contractAddress, "hello", [someone]);
           iost.signAndSend(tx)
@@ -76,10 +76,10 @@ class HelloWorld extends Component<Props> {
     const contractAddress = 'token.iost'
     const { someone } = this.state
 
-      IOSTJS.enable().then((account) => {
+      IWalletJS.enable().then((account) => {
         if(account){
-          const iost = IOSTJS.newIost(IOST)
-          const tx = iost.transfer('iost', account, "testnetiost", "1.000", "this is memo")
+          const iost = IWalletJS.newIOST(IOST)
+          const tx = iost.transfer('iost', account, "tonokim", "2.500", "this is memo")
           iost.signAndSend(tx)
           .on('pending', (pending) => {
             console.log(pending, 'pending')

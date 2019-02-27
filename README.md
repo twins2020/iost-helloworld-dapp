@@ -14,9 +14,9 @@ To use this, valid contract address should be in `src/components/HelloWorld.js` 
     const contractAddress = '' // fill contract address in it!
     const { someone } = this.state
 
-    window.IOSTJS.enable().then((account) => {
+    window.IWalletJS.enable().then((account) => {
       if(account){
-        const iost = window.IOSTJS.newIost(IOST)
+        const iost = window.IWalletJS.newIOST(IOST)
         const tx = iost.callABI(contractAddress, "hello", [someone]);
         iost.signAndSend(tx)
         .on('pending', (pending) => {
