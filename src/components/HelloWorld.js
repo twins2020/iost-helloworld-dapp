@@ -79,7 +79,7 @@ class HelloWorld extends Component<Props> {
       IWalletJS.enable().then((account) => {
         if(account){
           const iost = IWalletJS.newIOST(IOST)
-          const tx = iost.transfer('iost', account, "tonokim", "2.500", "this is memo")
+          const tx = iost.transfer('iost', account, "testnetiost", "2.500", "this is memo")
           iost.signAndSend(tx)
           .on('pending', (pending) => {
             console.log(pending, 'pending')
