@@ -21,11 +21,10 @@ class HelloWorld extends Component<Props> {
     // console.log(window.IOSTJS)
     setTimeout(()=> {
       IOSTJS.enable().then((account) => {
-        if(!account){
-          this.setState({
-            account
-          })
-        }
+        if(!account) return;
+        this.setState({
+          account
+        })
       })
     }, 500)
   }
