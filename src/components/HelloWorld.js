@@ -21,7 +21,7 @@ class HelloWorld extends Component<Props> {
     // console.log(window.IOSTJS)
     setTimeout(()=> {
       IOSTJS.enable().then((account) => {
-        if(account){
+        if(!account){
           this.setState({
             account
           })
@@ -80,7 +80,7 @@ class HelloWorld extends Component<Props> {
       IOSTJS.enable().then((account) => {
         if(account){
           const iost = IOSTJS.newIost(IOST)
-          const tx = iost.callABI(contractAddress, "transfer", ["iost", "testnetiost", "testiost1", "1.000", "this is memo"]);
+          const tx = iost.transfer('iost', account, "testnetiost", "1.000", "this is memo")
           iost.signAndSend(tx)
           .on('pending', (pending) => {
             console.log(pending, 'pending')
