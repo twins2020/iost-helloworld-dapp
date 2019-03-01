@@ -6,7 +6,6 @@ import { syncHistoryWithStore } from 'react-router-redux'
 
 import App from './App'
 import HelloWorld from 'components/HelloWorld'
-import HelloWorld2 from 'components/HelloWorld2'
 import store from './store'
 
 import './index.scss'
