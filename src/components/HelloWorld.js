@@ -25,6 +25,8 @@ class HelloWorld extends Component<Props> {
         this.setState({
           account
         })
+        
+
       })
     }, 500)
   }
