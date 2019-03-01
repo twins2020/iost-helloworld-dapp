@@ -1,10 +1,8 @@
 # iost-helloworld-dapp
 
-![Hello world](/iost-sampledapp.gif)
-
 ```
 npm install
-npm run local
+npm start
 ```
 
 To use this, valid contract address should be in `src/components/HelloWorld.js` 's `hello` method.
