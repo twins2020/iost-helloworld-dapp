@@ -10,8 +10,8 @@ npm run local
 To use this, valid contract address should be in `src/components/HelloWorld.js` 's `hello` method.
 `src/components/HelloWorld.js`
 ```
- hello = () => {
-    const contractAddress = '' // fill contract address in it!
+  hello = () => {
+    const contractAddress = 'ContractEuBvAH3ruoB4zC8b9jMRrBxT7u6nENbFXmJhhSC3z5QB' //update with your contract address
     const { someone } = this.state
 
     window.IWalletJS.enable().then((account) => {
