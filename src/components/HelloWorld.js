@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import IOST from 'iost'
-import ETH from 'ethjs'
+import Signature from 'iost/lib/crypto/signature'
+// import ETH from 'ethjs'
 
 import './HelloWorld.scss'
 
@@ -25,7 +26,7 @@ class HelloWorld extends Component<Props> {
         this.setState({
           account
         })
-        
+
 
       })
     }, 500)
@@ -81,14 +82,14 @@ class HelloWorld extends Component<Props> {
       IWalletJS.enable().then((account) => {
         if(account){
           const iost = IWalletJS.newIOST(IOST)
-          const tx = iost.transfer('iost', account, "testnetiost", "2.500", "this is memo")
+          const tx = iost.transfer('iost', account, "qyvlik", "1.0000", "this is memo")
           iost.signAndSend(tx)
           .on('pending', (pending) => {
             console.log(pending, 'pending')
             this.setState({
               isLoading: true,
               txHash: pending,
-              result: ''
+              result: 'pending: ' + pending
             })
           })
           .on('success', (result) => {
@@ -109,6 +110,39 @@ class HelloWorld extends Component<Props> {
         }
     })
   }
+
+    signMessage = () => {
+        const { someone } = this.state
+
+        IWalletJS.enable().then((account) => {
+            if(account){
+                const iost = IWalletJS.newIOST(IOST)
+                iost.signMessage(someone)
+                    .on('pending', (pending) => {
+                        console.log(pending, 'pending')
+                        this.setState({
+                            isLoading: true,
+                            txHash: pending,
+                            result: ''
+                        })
+                    })
+                    .on('success', (result) => {
+                        this.setState({
+                            isLoading: false,
+                            result: JSON.stringify(result)
+                        })
+                    })
+                    .on('failed', (failed) => {
+                        console.log(failed, 'failed')
+                        this.setState({
+                            isLoading: false,
+                        })
+                    })
+            }else{
+                console.log('not login')
+            }
+        })
+    }
 
   render() {
     const { txHash, result, isLoading, account } = this.state
@@ -146,6 +180,13 @@ class HelloWorld extends Component<Props> {
           onClick={this.transfer}
         >
           Transfer!
+        </button>
+        <p></p>
+        <button
+            className="HelloWorld__helloButton"
+            onClick={this.signMessage}
+        >
+          signMessage!
         </button>
         {isLoading && (
           <Fragment>

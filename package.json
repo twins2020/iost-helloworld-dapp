@@ -20,7 +20,7 @@
     "dotenv": "^6.0.0",
     "dotenv-webpack": "^1.5.7",
     "ethjs": "^0.4.0",
-    "iost": "^0.0.20",
+    "iost": "^0.1.19",
     "json-format": "^1.0.1",
     "lodash": "^4.17.10",
     "moment": "^2.22.2",
